@@ -1,0 +1,62 @@
+# For this project, I downloaded Spotify data from Kaggle.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL. 
+
+#Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL 
+)
+
+#Then I inserted the Spotify Data .csv into the table.
+
+#Next, I explored the data using the following SQL. 
+
+
+
+#1. Who is the most popular artist on the list and how many songs do they have on the list?
+SELECT 
+    artist_name  AS Artist,
+    COUNT(*) AS Songs,
+    AVG(popularity) AS Avg_Popularity
+FROM BIT_DB.Spotifydata
+
+    GROUP BY Artist
+    ORDER BY Avg_Popularity DESC,
+              Songs DESC
+          LIMIT 1;
+
+
+#2. How many times does every artist show up in the list,
+SELECT
+   artist_name AS Artist, 
+   COUNT(*) AS Songs
+FROM BIT_DB.Spotifydata
+    GROUP BY Artist
+    ORDER BY Songs DESC;
+
+#3. Does having more songs on the top list mean that they are more popular? 
+SELECT
+   artist_name AS Artist, 
+   COUNT(*) AS Songs,
+   AVG(popularity) AS Popularity_Average
+FROM BIT_DB.Spotifydata
+    GROUP BY Artist
+    ORDER BY Popularity_Average DESC
+;
